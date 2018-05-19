@@ -36,6 +36,9 @@ public class StartApp {
                 while ((line = br.readLine()) != null) {
                     if(cyclingLinesIndex%3 == 1){
                         currentTxtString.append(line);
+                        if(line.length() == 42){
+                            currentTxtString.append(" ");
+                        }
                         cyclingLinesIndex++;
                     }
                     else if(cyclingLinesIndex%3 == 2){
@@ -58,12 +61,13 @@ public class StartApp {
     }
     public static void LineToXML(String line){
 
-       String lon = line.substring(63,72);
-       lon = setCoordinate(lon);
-       StringBuilder Oldlat = new StringBuilder(line.substring(75,85));
-       Oldlat.deleteCharAt(0);
 
-     String lat = setCoordinate(Oldlat.toString());
+       StringBuilder Oldlon = new StringBuilder(line.substring(75,85));
+       Oldlon.deleteCharAt(0);
+       String lat = line.substring(63,72);
+        lat = setCoordinate(lat);
+
+     String lon = setCoordinate(Oldlon.toString());
 
 
      //TODO: Time to be in the right format
