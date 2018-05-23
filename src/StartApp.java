@@ -1,3 +1,4 @@
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.*;
 import java.text.DecimalFormat;
 
@@ -6,13 +7,20 @@ import java.text.DecimalFormat;
  */
 public class StartApp {
     static  String inputPath = "./test.txt";
-    static String outputPath = "./outputTest.txt";
+    static String outputPath = "./file.gpx";
     static StringBuilder stringBuilder = new StringBuilder();
     static StringBuilder currentTxtString = new StringBuilder();
     static int pointcoutner = 1;
-    public static void main(String[] args) {
-        
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter log file path");
+        try {
+            inputPath = br.readLine();
+            System.out.println("Enter gpx path and name:");
+            outputPath = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         stringBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<gpx\n" +
                 "  version=\"1.0\"\n" +
@@ -25,6 +33,15 @@ public class StartApp {
         stringBuilder.append("\t</gpx>");
 
        System.out.println(stringBuilder);
+        File file = new File( outputPath);
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(file));
+            writer.write(stringBuilder.toString());
+        }
+        finally {
+            if (writer != null) writer.close();
+        }
     }
 
 
