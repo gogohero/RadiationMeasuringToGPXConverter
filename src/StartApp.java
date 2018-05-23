@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.DecimalFormat;
 
 /**
@@ -14,6 +11,7 @@ public class StartApp {
     static StringBuilder currentTxtString = new StringBuilder();
     static int pointcoutner = 1;
     public static void main(String[] args) {
+        
 
         stringBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<gpx\n" +
@@ -25,8 +23,12 @@ public class StartApp {
                 "<time>2017-07-30T15:11:53Z</time>\"\n");
         TXTToXML(inputPath);
         stringBuilder.append("\t</gpx>");
+
        System.out.println(stringBuilder);
     }
+
+
+
     public static void TXTToXML(String inputPath) {
         int cyclingLinesIndex = 1;
         File file = new File(inputPath);
@@ -61,7 +63,7 @@ public class StartApp {
     }
     public static void LineToXML(String line){
 
-
+try{
        StringBuilder Oldlon = new StringBuilder(line.substring(75,85));
        Oldlon.deleteCharAt(0);
        String lat = line.substring(63,72);
@@ -88,7 +90,8 @@ public class StartApp {
 
 
 
-       stringBuilder.append("\n");
+       stringBuilder.append("\n");}
+       catch (Exception e){};
     }
 
     public static String setCoordinate(String coordinate){
